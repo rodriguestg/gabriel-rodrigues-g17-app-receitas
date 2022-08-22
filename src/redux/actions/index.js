@@ -1,3 +1,4 @@
-const minhaAction = (value) => ({ type: USER_LOGIN, value });
-
-export default minhaAction;
+export const userAction = (value) => ({
+  type: 'LOGIN',
+  value,
+});

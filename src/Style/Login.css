@@ -1,0 +1,32 @@
+* {
+    text-align: center;
+}
+
+body {
+    background: rgba(0, 0, 0, 0.295) url('https://i.pinimg.com/originals/d9/ac/bb/d9acbbfd40e321880d5398010f15537f.jpg');
+    background-size: 450px;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+}
+
+img {
+    width: 250px;
+    margin-top: 150px;
+}
+
+.login-input {
+    background: rgba(255, 255, 255, 0.87);
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.login-btn {
+    background: #ffde59da;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

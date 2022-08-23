@@ -5,7 +5,6 @@ const alertNoResults = () => {
 
 export default async function checkLength(item, url, history) {
   const items = await item;
-  console.log(items);
   const typeOf = items.meals ? items.meals : items.drinks;
   if (!typeOf) {
     alertNoResults();

@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-#login {
+.login-page {
   background: rgba(0, 0, 0, 0.377) url('https://i.pinimg.com/originals/d9/ac/bb/d9acbbfd40e321880d5398010f15537f.jpg');
   background-blend-mode: darken;
   background-size: cover;

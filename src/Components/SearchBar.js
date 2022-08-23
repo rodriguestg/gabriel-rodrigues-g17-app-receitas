@@ -19,19 +19,13 @@ class SearchBar extends React.Component {
     global.alert(mensage);
   };
 
-  detailsRoute = (type, idReceita) => {
-    const { history } = this.props;
-    history.push(`/${type}/${idReceita}`);
-  }
-
   apiSearch = async () => {
     const { url, history } = this.props;
     const { search: { nameSearch, typeSearch } } = this.state;
     const formatUrl = url.charAt(1).toUpperCase() + url.slice(2, url.length);
     const getMethod = `fetch${formatUrl}`;
     const getServiceObj = url === '/foods' ? fetchFoodsObject : fetchDrinkObject;
-    // const { dispatchSearch } = this.props;
-
+    
     switch (typeSearch) {
     case 'ingredient':
       checkLength(getServiceObj[`${getMethod}MainIngredient`](nameSearch), url, history);
@@ -47,7 +41,7 @@ class SearchBar extends React.Component {
       }
       break;
     default:
-      return null;
+      console.log('Selecione uma opção');
     }
   };
 
@@ -85,7 +79,7 @@ class SearchBar extends React.Component {
                 type="radio"
                 data-testid="ingredient-search-radio"
                 value="ingredient"
-                onChange={ this.handleChange }
+                onClick={ this.handleChange }
               />
             </label>
             <label htmlFor="name-search">
@@ -96,7 +90,7 @@ class SearchBar extends React.Component {
                 type="radio"
                 data-testid="name-search-radio"
                 value="name"
-                onChange={ this.handleChange }
+                onClick={ this.handleChange }
               />
             </label>
             <label htmlFor="first-letter-search">
@@ -107,7 +101,7 @@ class SearchBar extends React.Component {
                 type="radio"
                 data-testid="first-letter-search-radio"
                 value="firstLetter"
-                onChange={ this.handleChange }
+                onClick={ this.handleChange }
               />
             </label>
             <button type="button" data-testid="exec-search-btn" onClick={ this.search }>

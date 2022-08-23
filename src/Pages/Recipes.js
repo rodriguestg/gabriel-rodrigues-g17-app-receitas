@@ -18,9 +18,7 @@ class Recipes extends React.Component {
 }
 
 Recipes.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.func,
-  }).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(null, null)(Recipes);

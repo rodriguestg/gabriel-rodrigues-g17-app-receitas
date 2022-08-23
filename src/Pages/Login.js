@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import userAction from '../redux/actions';
+import { userAction } from '../redux/actions';
 
 import '../Style/Login.css';
 import logo from '../images/logo1.png';

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import fetchDrinkObject from '../services/FetchDrinkAPI';
 import fetchFoodsObject from '../services/fetchFoodAPIs';
 import checkLength from '../services/checkLength';
+import { saveSearchAction } from '../redux/actions';
 
 class SearchBar extends React.Component {
   constructor() {
@@ -29,6 +30,7 @@ class SearchBar extends React.Component {
     const formatUrl = url.charAt(1).toUpperCase() + url.slice(2, url.length);
     const getMethod = `fetch${formatUrl}`;
     const getServiceObj = url === '/foods' ? fetchFoodsObject : fetchDrinkObject;
+    // const { dispatchSearch } = this.props;
 
     switch (typeSearch) {
     case 'ingredient':
@@ -127,4 +129,8 @@ SearchBar.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-export default connect(null, null)(SearchBar);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSearch: (value) => dispatch(saveSearchAction(value)),
+});
+
+export default connect(null, mapDispatchToProps)(SearchBar);

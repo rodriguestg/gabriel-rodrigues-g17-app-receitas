@@ -5,14 +5,13 @@ const alertNoResults = () => {
 
 export default async function checkLength(item, url, history) {
   const items = await item;
-  console.log(items);
   const typeOf = items.meals ? items.meals : items.drinks;
   if (!typeOf) {
     alertNoResults();
   } else if (typeOf.length === 1) {
     const idType = typeOf[0].idMeal || typeOf[0].idDrink;
     history.push(`${url}/${idType}`);
-  } else {
-    console.log('foi');
+  } else if (typeOf.length > 1) {
+    return items;
   }
 }

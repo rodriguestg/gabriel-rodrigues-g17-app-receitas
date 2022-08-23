@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Foods from '../Components/Foods';
 import Drinks from '../Components/Drinks';

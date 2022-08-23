@@ -25,7 +25,7 @@ class SearchBar extends React.Component {
     const formatUrl = url.charAt(1).toUpperCase() + url.slice(2, url.length);
     const getMethod = `fetch${formatUrl}`;
     const getServiceObj = url === '/foods' ? fetchFoodsObject : fetchDrinkObject;
-    
+
     switch (typeSearch) {
     case 'ingredient':
       checkLength(getServiceObj[`${getMethod}MainIngredient`](nameSearch), url, history);

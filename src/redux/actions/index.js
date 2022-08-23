@@ -1,6 +1,9 @@
-const userAction = (value) => ({
+export const userAction = (value) => ({
   type: 'LOGIN',
   value,
 });
 
-export default userAction;
+export const saveSearchAction = (value) => ({
+  type: 'SAVE_SEARCH_TO_STATE',
+  value,
+});

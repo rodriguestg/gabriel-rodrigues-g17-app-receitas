@@ -61,7 +61,7 @@ class Login extends React.Component {
   render() {
     const { isSubmitButtonDisabled, email, password } = this.state;
     return (
-      <div id="login-page">
+      <div id="login">
         <img src={ logo } alt="logo" className="logo" />
         <form>
           <div>

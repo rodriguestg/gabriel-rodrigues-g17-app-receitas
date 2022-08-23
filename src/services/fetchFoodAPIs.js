@@ -19,13 +19,13 @@ const fetchFoodsObject = {
   fetchFoodsFirstLetter: async (firstLetter) => {
     const response = await fetch(`${FOOD_ENDPOINT_FIRST_LETTER}${firstLetter}`);
     const json = await response.json();
-    console.log(json);
+
     return json;
   },
   fetchFoodsMainIngredient: async (ingredient) => {
     const response = await fetch(`${FOOD_ENDPOINT_MAIN_INGREDIENT}${ingredient}`);
     const json = await response.json();
-    console.log(json);
+
     return json;
   },
 };

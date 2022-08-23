@@ -3,11 +3,7 @@ export const userAction = (value) => ({
   value,
 });
 
-
 export const saveSearchAction = (value) => ({
   type: 'SAVE_SEARCH_TO_STATE',
   value,
 });
-
-
-

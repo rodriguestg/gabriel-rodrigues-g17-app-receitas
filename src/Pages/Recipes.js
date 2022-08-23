@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
@@ -15,5 +16,9 @@ class Recipes extends React.Component {
     );
   }
 }
+
+Recipes.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default connect(null, null)(Recipes);

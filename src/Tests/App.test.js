@@ -1,9 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import App from '../App';
 import renderWithRouterAndRedux from './Helpers/renderWithRouterAndRedux';
-import Recipes from '../Pages/Recipes';
 
 describe('Testa a página de login', () => {
   test('se os componentes se encontram na tela', () => {
@@ -23,18 +22,16 @@ describe('Testa a página de login', () => {
     userEvent.click(submitButton);
   });
 
-  describe('Testing Footer Component', () => {
-    it('check footer elements', () => {
-      renderWithRouterAndRedux(<Recipes/>);
-      const footer = screen.getByTestId('footer');
-      const drinksBtn = screen.getByTestId('drinks-bottom-btn');
-      const foodBtn = screen.getByTestId('food-bottom-btn');
-      expect(footer).toBeInTheDocument();
-      expect(drinksBtn).toBeInTheDocument();
-      expect(foodBtn).toBeInTheDocument();
+  test('check footer elements', () => {
+    renderWithRouterAndRedux(<App />, undefined, '/foods');
+    const footer = screen.getByTestId('footer');
+    const drinksBtn = screen.getByTestId('drinks-bottom-btn');
+    const foodBtn = screen.getByTestId('food-bottom-btn');
+    expect(footer).toBeInTheDocument();
+    expect(drinksBtn).toBeInTheDocument();
+    expect(foodBtn).toBeInTheDocument();
 
-      userEvent.click(foodBtn);
-      userEvent.click(drinksBtn);
-    });
+    userEvent.click(foodBtn);
+    userEvent.click(drinksBtn);
   });
-})
+});

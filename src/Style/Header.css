@@ -9,15 +9,15 @@ h1 {
   margin: 10px;
 }
 
-.recipe-btn {
-  background-color: rgba(255, 255, 255, 0);
+.profile-btn, .search-btn {
+  background-color: #ffde59da;
   border: none;
-  margin-top: 10px;
+  border-radius: 50%;
+  margin: 5px;
+  padding: 10px;
 }
 
 img {
   margin: 0;
-  margin-left: 10px;
-  margin-right: 10px;
-  width: 35px;
+  width: 30px;
 }

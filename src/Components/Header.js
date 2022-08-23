@@ -25,7 +25,7 @@ class Header extends Component {
         <button
           type="button"
           onClick={ () => this.setState((prev) => ({ searchBar: !prev.searchBar })) }
-          className="recipe-btn"
+          className="search-btn"
         >
           <img src={ searchIcon } data-testid="search-top-btn" alt="search-icon" />
         </button>
@@ -41,7 +41,7 @@ class Header extends Component {
             src={ profileIcon }
             data-testid="profile-top-btn"
             alt="user-icon"
-            className="recipe-btn"
+            className="profile-btn"
           />
         </Link>
         <h1 data-testid="page-title">{title}</h1>

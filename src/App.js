@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
 import RecipeDetails from './Pages/RecipeDetails';
+import Profile from './Pages/Profile';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route exact path="/drinks" component={ Recipes } />
       <Route exact path="/foods/:id" component={ RecipeDetails } />
       <Route exact path="/drinks/:id" component={ RecipeDetails } />
+      <Route exact path="/profile" component={ Profile } />
     </Switch>
   );
 }

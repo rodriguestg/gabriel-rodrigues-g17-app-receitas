@@ -1,4 +1,15 @@
-.footer {
-  bottom: 0;
-  position: fixed;
+footer {
+    background-color: rgba(255, 255, 255, 0.842);
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.footer-btn {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin: 5px 10px;
 }

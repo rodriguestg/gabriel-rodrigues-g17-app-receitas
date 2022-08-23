@@ -1,0 +1,23 @@
+header {
+  background-color: rgba(255, 255, 255, 0.842);
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+h1 {
+  margin: 10px;
+}
+
+.recipe-btn {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  margin-top: 10px;
+}
+
+img {
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 35px;
+}

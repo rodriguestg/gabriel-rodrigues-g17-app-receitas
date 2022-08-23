@@ -5,6 +5,8 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
+import '../Style/Header.css';
+
 class Header extends Component {
   constructor() {
     super();
@@ -23,6 +25,7 @@ class Header extends Component {
         <button
           type="button"
           onClick={ () => this.setState((prev) => ({ searchBar: !prev.searchBar })) }
+          className="recipe-btn"
         >
           <img src={ searchIcon } data-testid="search-top-btn" alt="search-icon" />
         </button>
@@ -34,12 +37,17 @@ class Header extends Component {
     return (
       <header>
         <Link to="/">
-          <img src={ profileIcon } data-testid="profile-top-btn" alt="user-icon" />
+          <img
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+            alt="user-icon"
+            className="recipe-btn"
+          />
         </Link>
+        <h1 data-testid="page-title">{title}</h1>
         {
           renderOnScreen && searchElement
         }
-        <h1 data-testid="page-title">{title}</h1>
       </header>
     );
   }

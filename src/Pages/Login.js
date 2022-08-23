@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { userAction } from '../redux/actions';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../Style/Login.css';
 import logo from '../images/logo1.png';
@@ -63,7 +62,7 @@ class Login extends React.Component {
     const { isSubmitButtonDisabled, email, password } = this.state;
     return (
       <div>
-        <img src={ logo } alt="logo" />
+        <img src={ logo } alt="logo" className="logo" />
         <form>
           <div>
             <input

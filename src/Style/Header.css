@@ -1,17 +1,23 @@
-footer {
+header {
   background-color: rgba(255, 255, 255, 0.842);
-  bottom: 0;
   display: flex;
   justify-content: space-between;
-  left: 0;
-  position: fixed;
-  width: 100%;
+  text-align: center;
 }
 
-.footer-btn {
+h1 {
+  margin: 10px;
+}
+
+.profile-btn, .search-btn {
   background-color: #ffde59da;
   border: none;
   border-radius: 50%;
-  margin: 5px 10px;
+  margin: 5px;
   padding: 10px;
+}
+
+img {
+  margin: 0;
+  width: 30px;
 }

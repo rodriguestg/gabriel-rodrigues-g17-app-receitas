@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { userAction } from '../redux/actions';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import '../Style/Login.css';
+import logo from '../images/logo1.png';
 
 class Login extends React.Component {
   constructor() {
@@ -59,7 +61,8 @@ class Login extends React.Component {
   render() {
     const { isSubmitButtonDisabled, email, password } = this.state;
     return (
-      <div>
+      <div className="login-page">
+        <img src={ logo } alt="logo" className="logo" />
         <form>
           <div>
             <input
@@ -69,6 +72,7 @@ class Login extends React.Component {
               placeholder="E-mail"
               value={ email }
               name="email"
+              className="login-input"
             />
           </div>
           <div>
@@ -79,6 +83,7 @@ class Login extends React.Component {
               placeholder="Password"
               value={ password }
               name="password"
+              className="login-input"
             />
           </div>
           <div>
@@ -87,6 +92,7 @@ class Login extends React.Component {
               data-testid="login-submit-btn"
               disabled={ isSubmitButtonDisabled }
               onClick={ this.handleLogin }
+              className="login-btn"
             >
               Entrar
             </button>

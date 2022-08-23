@@ -25,7 +25,7 @@ class Profile extends React.Component {
 
     return (
       <div>
-        <h1 data-testid="profile-email">{ email }</h1>
+        <h1 data-testid="profile-email" value={ email }>{ email }</h1>
         <button
           type="button"
           data-testid="profile-done-btn"

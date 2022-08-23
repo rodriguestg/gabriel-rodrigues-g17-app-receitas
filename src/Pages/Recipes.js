@@ -16,4 +16,8 @@ class Recipes extends React.Component {
   }
 }
 
+Recipes.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
 export default connect(null, null)(Recipes);

@@ -6,6 +6,8 @@ import Drinks from '../Components/Drinks';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
 
+import '../Style/Recipes.css';
+
 class Recipes extends React.Component {
   render() {
     const { history: { location: { pathname } }, history } = this.props;

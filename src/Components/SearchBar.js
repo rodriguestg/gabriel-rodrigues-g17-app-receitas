@@ -20,24 +20,33 @@ class SearchBar extends React.Component {
   };
 
   apiSearch = async () => {
-    const { url, history } = this.props;
+    const { url, history, dispatchSearch } = this.props;
     const { search: { nameSearch, typeSearch } } = this.state;
     const formatUrl = url.charAt(1).toUpperCase() + url.slice(2, url.length);
     const getMethod = `fetch${formatUrl}`;
     const getServiceObj = url === '/foods' ? fetchFoodsObject : fetchDrinkObject;
+    const getObjectKey = url === '/foods' ? 'meals' : 'drinks';
 
     switch (typeSearch) {
-    case 'ingredient':
+    case 'ingredient': {
+      const saveSearch = await
       checkLength(getServiceObj[`${getMethod}MainIngredient`](nameSearch), url, history);
+      dispatchSearch(saveSearch[getObjectKey]);
+    }
       break;
-    case 'name':
+    case 'name': {
+      const saveSearch = await
       checkLength(getServiceObj[`${getMethod}Name`](nameSearch), url, history);
+      dispatchSearch(saveSearch[getObjectKey]);
+    }
       break;
     case 'firstLetter':
       if (nameSearch.length > 1) {
         this.alertOneResults();
       } else {
+        const saveSearch = await
         checkLength(getServiceObj[`${getMethod}FirstLetter`](nameSearch), url, history);
+        dispatchSearch(saveSearch[getObjectKey]);
       }
       break;
     default:
@@ -63,8 +72,9 @@ class SearchBar extends React.Component {
     return (
       <section>
         <div>
-          <form>
+          <form className="filter">
             <input
+              className="input-search-bar"
               type="text"
               name="nameSearch"
               data-testid="search-input"
@@ -105,7 +115,7 @@ class SearchBar extends React.Component {
               />
             </label>
             <button type="button" data-testid="exec-search-btn" onClick={ this.search }>
-              A
+              Filter
             </button>
           </form>
         </div>
@@ -119,6 +129,7 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
+  dispatchSearch: PropTypes.func.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   url: PropTypes.string.isRequired,
 };

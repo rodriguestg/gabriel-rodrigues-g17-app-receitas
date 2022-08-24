@@ -19,16 +19,39 @@ class RecipeDetails extends Component {
     });
   }
 
+  handleClick = () => {
+    const { match: { params: { id } }, history } = this.props;
+    history.push(`/drinks/${id}/in-progress`);
+  }
+
   render() {
     const { match: { params: { id } }, match: { url } } = this.props;
     const { unmount } = this.state;
-    return !unmount
-      ? <DetailsComponent changeUnmount={ this.changeUnmount } id={ id } url={ url } />
-      : <Loading />;
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Receita
+        </button>
+        {
+          !unmount ? <DetailsComponent
+            changeUnmount={ this.changeUnmount }
+            id={ id }
+            url={ url }
+          />
+            : <Loading />
+        }
+      </div>
+    );
   }
 }
 
 RecipeDetails.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 

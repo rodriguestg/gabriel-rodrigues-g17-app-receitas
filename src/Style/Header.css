@@ -12,18 +12,23 @@ h1 {
 .profile-btn, .search-btn {
   background-color: rgba(255, 255, 255, 0);
   border: none;
-  margin-top: 5px;
-  padding-top: 10px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.search-bar {
+  display: flex;
+  flex-flow: row;
 }
 
 .filter {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 40px;
+  margin-bottom: 5px; 
 }
 
 .input-search-bar {
   border: none;
-  box-shadow: 1px 1px 5px;
+  border-bottom: 1px solid black;
   margin: 5px;
 }
 

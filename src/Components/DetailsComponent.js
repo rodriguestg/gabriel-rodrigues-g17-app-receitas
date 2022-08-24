@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ReactPlayer from 'react-player/youtube';
 import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
+import { saveInfoObj } from '../redux/actions/index';
 
 class DetailsComponent extends Component {
   constructor() {
@@ -25,6 +27,10 @@ class DetailsComponent extends Component {
     await this.useCorrectAPI();
     await this.requestRecipeDetails();
     await this.requestRecomendations();
+
+    const { saveInfoObjAction } = this.props;
+    const { info } = this.state;
+    saveInfoObjAction(info);
   }
 
   useCorrectAPI = () => {
@@ -55,7 +61,6 @@ class DetailsComponent extends Component {
   requestRecipeDetails = async () => {
     const { isFood, infoEndpoint } = this.state;
     const data = await this.handleRequest(infoEndpoint, true);
-    console.log(data);
     this.setState({
       info: isFood ? data.meals[0] : data.drinks[0],
     });
@@ -180,6 +185,11 @@ DetailsComponent.propTypes = {
   id: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   changeUnmount: PropTypes.func.isRequired,
+  saveInfoObjAction: PropTypes.func.isRequired,
 };
 
-export default DetailsComponent;
+const mapDispatchToProps = (dispatch) => ({
+  saveInfoObjAction: (infoObj) => dispatch(saveInfoObj(infoObj)),
+});
+
+export default connect(null, mapDispatchToProps)(DetailsComponent);

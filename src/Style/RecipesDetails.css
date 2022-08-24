@@ -1,0 +1,41 @@
+.recipe-detail-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+h2, h3 {
+  text-align: left;
+  margin: 10px;
+}
+
+.video {
+  margin-left: 35px;
+}
+
+.instructions {
+  background-color: rgba(211, 211, 211, 0.521);
+  border-radius: 5px;
+  margin: 15px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.instructions p {
+  text-align: justify;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.ingredients {
+  background-color: rgba(211, 211, 211, 0.521);
+  border-radius: 5px;
+  margin: 15px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.ingredients p {
+  text-align: left;
+  padding-left: 20px;
+}

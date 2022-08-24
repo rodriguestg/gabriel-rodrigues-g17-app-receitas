@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import PropTypes from 'prop-types';
 
+import '../Style/RecipesDetails.css';
+
 class RecipeDetails extends Component {
   constructor() {
     super();
@@ -59,15 +61,19 @@ class RecipeDetails extends Component {
     const { info } = this.state;
     return (
       <main>
-        <h2 data-testid="recipe-title">{info.strMeal}</h2>
-        <h3 data-testid="recipe-category">{info.strCategory}</h3>
         <img
+          className="recipe-detail-img"
           src={ info.strMealThumb }
           width="200"
           alt={ info.strMeal }
           data-testid="recipe-photo"
         />
+        <h2 data-testid="recipe-title">{info.strMeal}</h2>
+        <h3 data-testid="recipe-category">{info.strCategory}</h3>
         <ReactPlayer
+          width="80%"
+          height="100%"
+          className="video"
           data-testid="video"
           url={ (info.strYoutube) }
           config={ {
@@ -76,10 +82,12 @@ class RecipeDetails extends Component {
             },
           } }
         />
-        <article>
+        <article className="instructions">
+          <h2>Instructions</h2>
           <p data-testid="instructions">{ info.strInstructions }</p>
         </article>
-        <article>
+        <article className="ingredients">
+          <h2>Ingredients:</h2>
           {
             this.formateMealInfo(info).map((getMeasAndIng, index) => (
               <p

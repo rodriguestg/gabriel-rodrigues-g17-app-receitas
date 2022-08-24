@@ -5,6 +5,8 @@ import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
 import RecipeDetails from './Pages/RecipeDetails';
 import Profile from './Pages/Profile';
+import FavoriteRecipes from './Pages/FavoriteRecipes';
+import DoneRecipes from './Pages/DoneRecipes';
 import RecipeInProgress from './Pages/RecipeInProgress';
 
 class App extends React.Component {
@@ -23,6 +25,8 @@ class App extends React.Component {
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/foods/:id/in-progress" component={ RecipeInProgress } />
         <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     );
   }

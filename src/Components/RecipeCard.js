@@ -10,6 +10,7 @@ class RecipeCard extends React.Component {
           data-testid={ `${index}-card-img` }
           src={ image }
           alt={ cardName }
+          className="recipe-img"
         />
         <p data-testid={ `${index}-card-name` }>{ cardName }</p>
       </div>

@@ -79,6 +79,7 @@ class Foods extends React.Component {
     return data.map((element) => (
       <div
         key={ element.strCategory }
+        className="category-btn"
       >
         <CategoryButton
           categoryName={ element.strCategory }
@@ -107,6 +108,7 @@ class Foods extends React.Component {
       <div
         data-testid={ `${index}-recipe-card` }
         key={ element.idMeal }
+        className="recipes"
       >
         <Link to={ `/foods/${element.idMeal}` }>
           <RecipeCard
@@ -126,7 +128,9 @@ class Foods extends React.Component {
       <div>
         { isLoadingCategories ? <Loading /> : this.renderCategoryButtons() }
         <AllButton handleClick={ () => this.handleClickAllButton() } />
-        { isLoadingRecipes ? <Loading /> : this.renderRecipes() }
+        <div className="foods">
+          { isLoadingRecipes ? <Loading /> : this.renderRecipes() }
+        </div>
       </div>
     );
   }

@@ -1,7 +1,8 @@
 header {
   background-color: rgba(255, 255, 255, 0.842);
   display: flex;
-  justify-content: space-between;
+  flex-flow: wrap ;
+  justify-content: space-evenly;
   text-align: center;
 }
 
@@ -12,8 +13,19 @@ h1 {
 .profile-btn, .search-btn {
   background-color: rgba(255, 255, 255, 0);
   border: none;
+  margin-top: 5px;
+  padding-top: 10px;
+}
+
+.filter {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.input-search-bar {
+  border: none;
+  box-shadow: 1px 1px 5px;
   margin: 5px;
-  padding: 10px;
 }
 
 img {

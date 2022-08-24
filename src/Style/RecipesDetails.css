@@ -17,8 +17,8 @@ h2, h3 {
   background-color: rgba(211, 211, 211, 0.521);
   border-radius: 5px;
   margin: 15px;
-  padding-top: 2px;
   padding-bottom: 2px;
+  padding-top: 2px;
 }
 
 .instructions p {
@@ -31,11 +31,11 @@ h2, h3 {
   background-color: rgba(211, 211, 211, 0.521);
   border-radius: 5px;
   margin: 15px;
-  padding-top: 2px;
   padding-bottom: 2px;
+  padding-top: 2px;
 }
 
 .ingredients p {
-  text-align: left;
   padding-left: 20px;
+  text-align: left;
 }

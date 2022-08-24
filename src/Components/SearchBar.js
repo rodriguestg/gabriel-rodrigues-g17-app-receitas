@@ -72,8 +72,9 @@ class SearchBar extends React.Component {
     return (
       <section>
         <div>
-          <form>
+          <form className="filter">
             <input
+              className="input-search-bar"
               type="text"
               name="nameSearch"
               data-testid="search-input"
@@ -114,7 +115,7 @@ class SearchBar extends React.Component {
               />
             </label>
             <button type="button" data-testid="exec-search-btn" onClick={ this.search }>
-              A
+              Filter
             </button>
           </form>
         </div>

@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
 import { saveInfoObj } from '../redux/actions/index';
 
+import '../Style/RecipesDetails.css';
+
 class DetailsComponent extends Component {
   constructor() {
     super();
@@ -126,6 +128,7 @@ class DetailsComponent extends Component {
         onClick={ changeUnmount }
       >
         <RecipeCard
+          className="recipe-card"
           image={ isFood ? recInfo.strDrinkThumb : recInfo.strMealThumb }
           cardName={ isFood ? recInfo.strDrink : recInfo.strMeal }
           index={ index }
@@ -140,18 +143,22 @@ class DetailsComponent extends Component {
 
     return (
       <main>
-        <h2 data-testid="recipe-title">{ isFood ? info.strMeal : info.strDrink}</h2>
-        <h3 data-testid="recipe-category">{info.strCategory}</h3>
-        {
-          !isFood && <h3 data-testid="recipe-category">{ info.strAlcoholic }</h3>
-        }
         <img
           src={ isFood ? info.strMealThumb : info.strDrinkThumb }
           width="200"
           alt={ info.strMeal }
           data-testid="recipe-photo"
+          className="recipe-detail-img"
         />
+        <h2 data-testid="recipe-title">{ isFood ? info.strMeal : info.strDrink}</h2>
+        <h3 data-testid="recipe-category">{info.strCategory}</h3>
+        {
+          !isFood && <h3 data-testid="recipe-category">{ info.strAlcoholic }</h3>
+        }
         <ReactPlayer
+          width="80%"
+          height="100%"
+          className="video"
           data-testid="video"
           url={ isFood ? info.strYoutube : info.strVideo }
           config={ {
@@ -160,17 +167,19 @@ class DetailsComponent extends Component {
             },
           } }
         />
-        <article>
+        <article className="instructions">
+          <h2>instructions</h2>
           <p data-testid="instructions">{ info.strInstructions }</p>
         </article>
-        <article>
+        <article className="ingredients">
+          <h2>Ingredients</h2>
           {
             isFood
               ? getInfoFormated.map(this.renderInfoIngAndMeas)
               : getInfoFormated.map(this.renderInfoIngAndMeas)
           }
         </article>
-        <section>
+        <section className="recommended">
           {
             recomendations
               .map((recInfo, index) => this.renderRec(isFood, recInfo, index))

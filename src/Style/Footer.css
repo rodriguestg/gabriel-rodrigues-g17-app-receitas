@@ -9,9 +9,7 @@ footer {
 }
 
 .footer-btn {
-  background-color: #ffde59da;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
-  border-radius: 50%;
   margin: 5px 10px;
-  padding: 10px;
 }

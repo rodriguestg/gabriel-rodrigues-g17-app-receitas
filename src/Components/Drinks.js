@@ -1,15 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import CategoryButton from './CategoryButton';
 import RecipeCard from './RecipeCard';
 import Loading from './Loading';
 import AllButton from './AllButton';
+import { saveSearchAction } from '../redux/actions';
 
 class Drinks extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipesObj: {},
+      // recipesObj: {},
       categories: {},
       isLoadingCategories: true,
       isLoadingRecipes: true,
@@ -30,13 +33,15 @@ class Drinks extends React.Component {
   }
 
   handleClickCategoryButton = async ({ target }) => {
+    const { dispatchSearch } = this.props;
     this.setState({
       isLoadingRecipes: true,
     });
     const formatedCategoryName = target.name;
     const categoriesFilter = await this.fetchDrinkByCategories(formatedCategoryName);
+    dispatchSearch(categoriesFilter.drinks);
     this.setState({
-      recipesObj: categoriesFilter.drinks,
+      // recipesObj: categoriesFilter.drinks,
       isLoadingRecipes: false,
     });
     this.toggleFilter(formatedCategoryName);
@@ -90,25 +95,26 @@ class Drinks extends React.Component {
   }
 
   saveFirstRecipes = async () => {
+    const { dispatchSearch } = this.props;
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const json = await response.json();
 
+    dispatchSearch(json.drinks);
+
     this.setState({
-      recipesObj: json.drinks,
       isLoadingRecipes: false,
     });
   }
 
   renderRecipes = () => {
-    const { recipesObj } = this.state;
+    const { stateFoods } = this.props;
     const arrayLength = 12;
-    const data = recipesObj.slice(0, arrayLength);
+    const data = stateFoods.slice(0, arrayLength);
 
     return data.map((element, index) => (
       <div
         data-testid={ `${index}-recipe-card` }
         key={ element.idDrink }
-        className="recipes"
       >
         <Link to={ `/drinks/${element.idDrink}` }>
           <RecipeCard
@@ -136,4 +142,19 @@ class Drinks extends React.Component {
   }
 }
 
-export default Drinks;
+Drinks.propTypes = {
+  dispatchSearch: PropTypes.func.isRequired,
+  stateFoods: PropTypes.arrayOf(
+    PropTypes.any,
+  ).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSearch: (value) => dispatch(saveSearchAction(value)),
+});
+
+const mapStateToProps = (state) => ({
+  stateFoods: state.saveSearchReducer.search,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drinks);

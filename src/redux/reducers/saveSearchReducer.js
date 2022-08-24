@@ -1,4 +1,4 @@
-const INITIAL_STATE = {};
+const INITIAL_STATE = { search: [] };
 
 const saveSearchReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

@@ -9,6 +9,10 @@ h2, h3 {
   text-align: left;
 }
 
+h3 {
+  color: rgb(128, 128, 128);
+}
+
 .video {
   margin-left: 35px;
 }
@@ -38,4 +42,12 @@ h2, h3 {
 .ingredients p {
   padding-left: 20px;
   text-align: left;
+}
+
+.recommended {
+  display: inline-flex;
+  margin: auto;
+  position: relative;
+  overflow: auto;
+  width: 100%;
 }

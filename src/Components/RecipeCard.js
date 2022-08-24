@@ -5,7 +5,7 @@ class RecipeCard extends React.Component {
   render() {
     const { image, cardName, index } = this.props;
     return (
-      <div>
+      <div className="recipes">
         <img
           data-testid={ `${index}-card-img` }
           src={ image }

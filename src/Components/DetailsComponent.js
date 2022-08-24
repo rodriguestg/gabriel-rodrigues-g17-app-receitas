@@ -7,6 +7,7 @@ import RecipeCard from './RecipeCard';
 import { saveInfoObj } from '../redux/actions/index';
 
 import '../Style/RecipesDetails.css';
+import ShareFavBtn from './ShareFavBtn';
 
 class DetailsComponent extends Component {
   constructor() {
@@ -167,6 +168,7 @@ class DetailsComponent extends Component {
             },
           } }
         />
+        <ShareFavBtn infoObj={ info } />
         <article className="instructions">
           <h2>instructions</h2>
           <p data-testid="instructions">{ info.strInstructions }</p>

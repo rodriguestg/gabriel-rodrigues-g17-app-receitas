@@ -36,7 +36,7 @@ class Header extends Component {
     );
     return (
       <header>
-        <Link to="/">
+        <Link to="/profile">
           <img
             src={ profileIcon }
             data-testid="profile-top-btn"
@@ -52,10 +52,11 @@ class Header extends Component {
     );
   }
 }
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   renderOnScreen: PropTypes.bool.isRequired,
-  url: PropTypes.string.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  url: PropTypes.string.isRequired,
 };
 export default Header;

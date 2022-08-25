@@ -4,6 +4,14 @@
   width: 100%;
 }
 
+.recomendation {
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px grey;
+  margin: 10px;
+  padding: 10px 60px;
+  width: 100px;
+}
+
 h2, h3 {
   margin: 10px;
   text-align: left;

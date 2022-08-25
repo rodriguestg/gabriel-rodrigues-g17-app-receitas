@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player/youtube';
 import { Link } from 'react-router-dom';
-import RecipeCard from './RecipeCard';
 import { saveInfoObj } from '../redux/actions/index';
 
 import '../Style/RecipesDetails.css';
@@ -26,10 +25,8 @@ class DetailsComponent extends Component {
     this.groupAllFunctions();
   }
 
-  groupAllFunctions = async () => {
-    await this.useCorrectAPI();
-    await this.requestRecipeDetails();
-    await this.requestRecomendations();
+  groupAllFunctions = () => {
+    this.useCorrectAPI();
 
     const { saveInfoObjAction } = this.props;
     const { info } = this.state;
@@ -42,12 +39,18 @@ class DetailsComponent extends Component {
       this.setState({
         infoEndpoint: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=',
         recomendationEndpoint: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+      }, async () => {
+        await this.requestRecipeDetails();
+        await this.requestRecomendations();
       });
     } else {
       this.setState({
         isFood: false,
         infoEndpoint: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
         recomendationEndpoint: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+      }, async () => {
+        await this.requestRecipeDetails();
+        await this.requestRecomendations();
       });
     }
   }
@@ -78,7 +81,6 @@ class DetailsComponent extends Component {
   }
 
   formateInfo = (info) => {
-    const { isFood } = this.state;
     let formatedInfo = [];
     const infoObj = Object.entries(info);
     const infoIng = infoObj
@@ -88,36 +90,20 @@ class DetailsComponent extends Component {
       .filter((findMeas) => findMeas[0].includes('strMeasu') && findMeas[1])
       .map((getMeas) => getMeas[1]);
 
-    if (isFood) {
-      for (let index = 0; index < infoIng.length; index += 1) {
-        formatedInfo = [...formatedInfo, [infoIng[index], infoMeas[index]]];
-      }
-      return formatedInfo;
+    for (let index = 0; index < infoIng.length; index += 1) {
+      formatedInfo = [...formatedInfo, [infoIng[index], infoMeas[index]]];
     }
-
-    return [...infoIng, ...infoMeas];
+    return formatedInfo;
   }
 
-  renderInfoIngAndMeas = (getMeasAndIng, index) => {
-    const { isFood } = this.state;
-    return isFood
-      ? (
-        <p
-          key={ `${getMeasAndIng}${index}` }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {`${getMeasAndIng[0]} ${getMeasAndIng[1]}` }
-        </p>
-      )
-      : (
-        <p
-          key={ `${getMeasAndIng}${index}` }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          { getMeasAndIng }
-        </p>
-      );
-  }
+  renderInfoIngAndMeas = (getMeasAndIng, index) => (
+    <p
+      key={ `${getMeasAndIng}${index}` }
+      data-testid={ `${index}-ingredient-name-and-measure` }
+    >
+      {`${getMeasAndIng[0]} ${getMeasAndIng[1] || ''}` }
+    </p>
+  )
 
   renderRec = (isFood, recInfo, index) => {
     const { changeUnmount } = this.props;
@@ -128,12 +114,18 @@ class DetailsComponent extends Component {
         to={ isFood ? `/drinks/${recInfo.idDrink}` : `/foods/${recInfo.idMeal}` }
         onClick={ changeUnmount }
       >
-        <RecipeCard
-          className="recipe-card"
-          image={ isFood ? recInfo.strDrinkThumb : recInfo.strMealThumb }
-          cardName={ isFood ? recInfo.strDrink : recInfo.strMeal }
-          index={ index }
-        />
+        <div className="recomendation">
+          <img
+            src={ isFood ? recInfo.strDrinkThumb : recInfo.strMealThumb }
+            alt={ isFood ? recInfo.strDrink : recInfo.strMeal }
+            className="recipe-img"
+          />
+          <p
+            data-testid={ `${index}-recomendation-title` }
+          >
+            { isFood ? recInfo.strDrink : recInfo.strMeal }
+          </p>
+        </div>
       </Link>
     );
   }
@@ -184,6 +176,7 @@ class DetailsComponent extends Component {
         <section className="recommended">
           {
             recomendations
+              .slice(0, this.SIX)
               .map((recInfo, index) => this.renderRec(isFood, recInfo, index))
           }
         </section>

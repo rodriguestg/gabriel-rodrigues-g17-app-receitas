@@ -30,28 +30,22 @@ class SearchBar extends React.Component {
     const formatUrl = url.charAt(1).toUpperCase() + url.slice(2, url.length);
     const getMethod = `fetch${formatUrl}`;
     const getServiceObj = url === '/foods' ? fetchFoodsObject : fetchDrinkObject;
-    const getObjectKey = url === '/foods' ? 'meals' : 'drinks';
 
     switch (typeSearch) {
-    case 'ingredient': {
-      const saveSearch = await
-      checkLength(getServiceObj[`${getMethod}MainIngredient`](nameSearch), url, history);
-      dispatchSearch(saveSearch[getObjectKey]);
-    }
+    case 'ingredient':
+      checkLength(getServiceObj[`${getMethod}MainIngredient`](nameSearch),
+        url, history, dispatchSearch);
       break;
-    case 'name': {
-      const saveSearch = await
-      checkLength(getServiceObj[`${getMethod}Name`](nameSearch), url, history);
-      dispatchSearch(saveSearch[getObjectKey]);
-    }
+    case 'name':
+      checkLength(getServiceObj[`${getMethod}Name`](nameSearch),
+        url, history, dispatchSearch);
       break;
     case 'firstLetter':
       if (nameSearch.length > 1) {
         this.alertOneResults();
       } else {
-        const saveSearch = await
-        checkLength(getServiceObj[`${getMethod}FirstLetter`](nameSearch), url, history);
-        dispatchSearch(saveSearch[getObjectKey]);
+        checkLength(getServiceObj[`${getMethod}FirstLetter`](nameSearch),
+          url, history, dispatchSearch);
       }
       break;
     default:

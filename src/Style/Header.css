@@ -1,0 +1,38 @@
+header {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+h1 {
+  margin: 10px;
+}
+
+.profile-btn, .search-btn {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  margin: 5px;
+  padding: 10px;
+}
+
+.search-bar {
+  display: flex;
+  flex-flow: row;
+}
+
+.filter {
+  margin-bottom: 5px;
+  margin-right: 40px;
+}
+
+.input-search-bar {
+  border: none;
+  border-bottom: 1px solid black;
+  margin: 5px;
+}
+
+img {
+  margin: 0;
+  width: 30px;
+}

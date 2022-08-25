@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Header from '../Components/Header';
+import Footer from '../Components/Footer';
 
 class Profile extends React.Component {
   getRecipes = () => {
@@ -20,34 +22,38 @@ class Profile extends React.Component {
   };
 
   render() {
-    const usuario = localStorage.getItem('user');
-    const { email } = JSON.parse(usuario);
+    const verifyLocalStorage = localStorage.getItem('user');
+    const email = verifyLocalStorage && JSON.parse(verifyLocalStorage).email;
 
     return (
-      <div>
-        <h1 data-testid="profile-email" value={ email }>{ email }</h1>
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ this.getRecipes }
-        >
-          Done Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ this.getFavoriteRecipes }
-        >
-          Favorite Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ this.logout }
-        >
-          Logout
-        </button>
-      </div>
+      <>
+        <Header renderOnScreen={ false } title="Profile" history={ {} } url="" />
+        <div>
+          <h1 data-testid="profile-email" value={ email }>{ email }</h1>
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+            onClick={ this.getRecipes }
+          >
+            Done Recipes
+          </button>
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+            onClick={ this.getFavoriteRecipes }
+          >
+            Favorite Recipes
+          </button>
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ this.logout }
+          >
+            Logout
+          </button>
+        </div>
+        <Footer />
+      </>
     );
   }
 }

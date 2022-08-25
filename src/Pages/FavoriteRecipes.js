@@ -5,53 +5,53 @@ import Header from '../Components/Header';
 // import PropTypes from 'prop-types';
 // import Header from '../Components/Header';
 
-class DoneRecipes extends React.Component {
+class FavoriteRecipes extends React.Component {
   constructor() {
     super();
     this.state = {
-      doneRecipes: [],
+      favoriteRecipes: [],
     };
   }
 
   componentDidMount() {
-    this.stateDoneRecipes();
+    this.stateRecipesFavorite();
   }
 
   filterAll = () => {
-    this.stateDoneRecipes();
+    this.stateRecipesFavorite();
   };
 
-  stateDoneRecipes = () => {
-    const ae = localStorage.getItem('doneRecipes');
-    const doneRecipes = JSON.parse(ae);
+  stateRecipesFavorite = () => {
+    const ae = localStorage.getItem('favoriteRecipes');
+    const favoriteRecipes = JSON.parse(ae);
     this.setState = {
-      doneRecipes,
+      favoriteRecipes,
     };
   }
 
   filterFoods = () => {
-    const doneRecipes = localStorage.getItem('doneRecipes');
-    const recipesFoods = doneRecipes.filter((recipe) => recipe.type === 'foods');
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    const recipesFoods = favoriteRecipes.filter((recipe) => recipe.type === 'foods');
     this.setState = {
-      doneRecipes: recipesFoods,
+      favoriteRecipes: recipesFoods,
     };
   };
 
   filterDrinks = () => {
-    const doneRecipes = localStorage.getItem('doneRecipes');
-    const recipesDrinks = doneRecipes.filter((recipe) => recipe.type === 'drinks');
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    const recipesDrinks = favoriteRecipes.filter((recipe) => recipe.type === 'drinks');
     this.setState = {
-      doneRecipes: recipesDrinks,
+      favoriteRecipes: recipesDrinks,
     };
   };
 
   render() {
-    const { doneRecipes } = this.state;
-    // const { id } = JSON.parse(doneRecipes);
+    const { favoriteRecipes } = this.state;
+    // const { id } = JSON.parse(favoriteRecipes);
 
     return (
       <>
-        <Header renderOnScreen={ false } title="Done Recipes" history={ {} } url="" />
+        <Header renderOnScreen={ false } title="Favorite Recipes" history={ {} } url="" />
         <div>
           <button
             type="button"
@@ -75,9 +75,9 @@ class DoneRecipes extends React.Component {
             Drinks
           </button>
           {
-            doneRecipes.map((recipe, index) => {
+            favoriteRecipes.map((recipe, index) => {
               const { id, type, nationality, category,
-                alcoholicOrNot, name, image, tags, doneDate } = recipe;
+                alcoholicOrNot, name, image } = recipe;
               return (
                 <div key={ id }>
                   <Link to={ `/${type}/${id}` }>
@@ -93,17 +93,14 @@ class DoneRecipes extends React.Component {
                       <div>
                         <p data-testid={ `${index}-horizontal-top-text` }>{ category }</p>
                         <p>{ nationality }</p>
-                        <p
-                          data-testid={ `${index}-${tags[0]}-horizontal-tag` }
-                        >
-                          { tags }
-                        </p>
                       </div>
                     ) : <p>{ alcoholicOrNot }</p>
                   }
-                  <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
                   <button type="button" data-testid={ `${index}-horizontal-share-btn` }>
                     Compartilhar
+                  </button>
+                  <button type="button">
+                    desfavoritar
                   </button>
                 </div>
               );
@@ -115,9 +112,8 @@ class DoneRecipes extends React.Component {
   }
 }
 
-// DoneRecipes.propTypes = {
+// FavoriteRecipes.propTypes = {
 //   history: PropTypes.objectOf(PropTypes.any).isRequired,
 // };
 
-export default connect(null, null)(DoneRecipes);
-
+export default connect(null, null)(FavoriteRecipes);

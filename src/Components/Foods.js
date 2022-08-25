@@ -7,6 +7,7 @@ import RecipeCard from './RecipeCard';
 import Loading from './Loading';
 import AllButton from './AllButton';
 import { saveSearchAction } from '../redux/actions';
+import Header from './Header';
 
 class Foods extends React.Component {
   constructor() {
@@ -36,15 +37,16 @@ class Foods extends React.Component {
     const { dispatchSearch } = this.props;
     this.setState({
       isLoadingRecipes: true,
+    }, async () => {
+      const formatedCategoryName = target.name;
+      const categoriesFilter = await this.fetchFoodByCategories(formatedCategoryName);
+      dispatchSearch(categoriesFilter.meals);
+      this.toggleFilter(formatedCategoryName);
+      this.setState({
+        // recipesObj: categoriesFilter.meals,
+        isLoadingRecipes: false,
+      });
     });
-    const formatedCategoryName = target.name;
-    const categoriesFilter = await this.fetchFoodByCategories(formatedCategoryName);
-    dispatchSearch(categoriesFilter.meals);
-    this.setState({
-      // recipesObj: categoriesFilter.meals,
-      isLoadingRecipes: false,
-    });
-    this.toggleFilter(formatedCategoryName);
   }
 
   toggleFilter = (element) => {
@@ -69,14 +71,11 @@ class Foods extends React.Component {
   saveCategories = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     const json = await response.json();
-    console.log(json);
-    console.log(this.state);
 
     this.setState({
       categories: json.meals,
       isLoadingCategories: false,
     });
-    console.log(this.state);
   }
 
   renderCategoryButtons = () => {
@@ -87,6 +86,7 @@ class Foods extends React.Component {
     return data.map((element) => (
       <div
         key={ element.strCategory }
+        className="category-btn"
       >
         <CategoryButton
           categoryName={ element.strCategory }
@@ -110,7 +110,6 @@ class Foods extends React.Component {
 
   renderRecipes = () => {
     const { stateFoods } = this.props;
-    console.log(stateFoods);
     const arrayLength = 12;
     const data = stateFoods.slice(0, arrayLength);
 
@@ -133,12 +132,18 @@ class Foods extends React.Component {
 
   render() {
     const { isLoadingCategories, isLoadingRecipes } = this.state;
+    const { history, url } = this.props;
     return (
-      <div>
-        { isLoadingCategories ? <Loading /> : this.renderCategoryButtons() }
-        <AllButton handleClick={ () => this.handleClickAllButton() } />
-        { isLoadingRecipes ? <Loading /> : this.renderRecipes() }
-      </div>
+      <>
+        <Header renderOnScreen title="Foods" url={ url } history={ history } />
+        <div>
+          { isLoadingCategories ? <Loading /> : this.renderCategoryButtons() }
+          <AllButton handleClick={ () => this.handleClickAllButton() } />
+          <div className="foods">
+            { isLoadingRecipes ? <Loading /> : this.renderRecipes() }
+          </div>
+        </div>
+      </>
     );
   }
 }
@@ -148,6 +153,8 @@ Foods.propTypes = {
   stateFoods: PropTypes.arrayOf(
     PropTypes.any,
   ).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

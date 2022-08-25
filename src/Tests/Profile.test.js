@@ -38,7 +38,6 @@ describe('Testando a página Profile', () => {
     login();
     history.push('/profile');
     const emailLocalStorage = screen.getByTestId("profile-email");
-    console.log(emailLocalStorage);
     expect(emailLocalStorage).toBeDefined();
     expect(emailLocalStorage).toHaveTextContent('juca@trybe.com');
   });

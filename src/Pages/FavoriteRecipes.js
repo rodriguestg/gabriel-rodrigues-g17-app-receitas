@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Header from '../Components/Header';
 // import PropTypes from 'prop-types';
 // import Header from '../Components/Header';
 
@@ -49,57 +50,64 @@ class FavoriteRecipes extends React.Component {
     // const { id } = JSON.parse(favoriteRecipes);
 
     return (
-      <div>
-        <button type="button" data-testid="filter-by-all-btn" onClick={ this.filterAll }>
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ this.filterFoods }
-        >
-          Foods
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ this.filterDrinks }
-        >
-          Drinks
-        </button>
-        {
-          favoriteRecipes.map((recipe, index) => {
-            const { id, type, nationality, category,
-              alcoholicOrNot, name, image } = recipe;
-            return (
-              <div key={ id }>
-                <Link to={ `/${type}/${id}` }>
-                  <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
-                  <img
-                    src={ image }
-                    alt={ name }
-                    data-testid={ `${index}-horizontal-image` }
-                  />
-                </Link>
-                {
-                  type === 'foods' ? (
-                    <div>
-                      <p data-testid={ `${index}-horizontal-top-text` }>{ category }</p>
-                      <p>{ nationality }</p>
-                    </div>
-                  ) : <p>{ alcoholicOrNot }</p>
-                }
-                <button type="button" data-testid={ `${index}-horizontal-share-btn` }>
-                  Compartilhar
-                </button>
-                <button type="button">
-                  desfavoritar
-                </button>
-              </div>
-            );
-          })
-        }
-      </div>
+      <>
+        <Header renderOnScreen={ false } title="Favorite Recipes" history={ {} } url="" />
+        <div>
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ this.filterAll }
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ this.filterFoods }
+          >
+            Foods
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ this.filterDrinks }
+          >
+            Drinks
+          </button>
+          {
+            favoriteRecipes.map((recipe, index) => {
+              const { id, type, nationality, category,
+                alcoholicOrNot, name, image } = recipe;
+              return (
+                <div key={ id }>
+                  <Link to={ `/${type}/${id}` }>
+                    <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+                    <img
+                      src={ image }
+                      alt={ name }
+                      data-testid={ `${index}-horizontal-image` }
+                    />
+                  </Link>
+                  {
+                    type === 'foods' ? (
+                      <div>
+                        <p data-testid={ `${index}-horizontal-top-text` }>{ category }</p>
+                        <p>{ nationality }</p>
+                      </div>
+                    ) : <p>{ alcoholicOrNot }</p>
+                  }
+                  <button type="button" data-testid={ `${index}-horizontal-share-btn` }>
+                    Compartilhar
+                  </button>
+                  <button type="button">
+                    desfavoritar
+                  </button>
+                </div>
+              );
+            })
+          }
+        </div>
+      </>
     );
   }
 }

@@ -3,7 +3,7 @@ const alertNoResults = () => {
   global.alert(mensage);
 };
 
-export default async function checkLength(item, url, history) {
+export default async function checkLength(item, url, history, reduxAction) {
   const items = await item;
   const typeOf = items.meals ? items.meals : items.drinks;
   if (!typeOf) {
@@ -12,6 +12,6 @@ export default async function checkLength(item, url, history) {
     const idType = typeOf[0].idMeal || typeOf[0].idDrink;
     history.push(`${url}/${idType}`);
   } else if (typeOf.length > 1) {
-    return items;
+    reduxAction(typeOf);
   }
 }

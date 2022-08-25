@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import Foods from '../Components/Foods';
 import Drinks from '../Components/Drinks';
 import Footer from '../Components/Footer';
-import Header from '../Components/Header';
-
 import '../Style/Recipes.css';
 
 class Recipes extends React.Component {
@@ -14,8 +12,9 @@ class Recipes extends React.Component {
 
     return (
       <div>
-        <Header renderOnScreen title="Receitas" url={ pathname } history={ history } />
-        { pathname === '/foods' ? <Foods /> : <Drinks /> }
+        { pathname === '/foods'
+          ? <Foods url={ pathname } history={ history } />
+          : <Drinks url={ pathname } history={ history } /> }
         <Footer />
       </div>
     );

@@ -7,6 +7,7 @@ import RecipeCard from './RecipeCard';
 import Loading from './Loading';
 import AllButton from './AllButton';
 import { saveSearchAction } from '../redux/actions';
+import Header from './Header';
 
 class Drinks extends React.Component {
   constructor() {
@@ -130,14 +131,18 @@ class Drinks extends React.Component {
 
   render() {
     const { isLoadingCategories, isLoadingRecipes } = this.state;
+    const { url, history } = this.props;
     return (
-      <div className="foods-recipes">
-        { isLoadingCategories ? <Loading /> : this.renderCategoryButtons() }
-        <AllButton handleClick={ () => this.handleClickAllButton() } />
-        <div className="drinks">
-          { isLoadingRecipes ? <Loading /> : this.renderRecipes() }
+      <>
+        <Header renderOnScreen title="Drinks" url={ url } history={ history } />
+        <div className="foods-recipes">
+          { isLoadingCategories ? <Loading /> : this.renderCategoryButtons() }
+          <AllButton handleClick={ () => this.handleClickAllButton() } />
+          <div className="drinks">
+            { isLoadingRecipes ? <Loading /> : this.renderRecipes() }
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
@@ -147,6 +152,8 @@ Drinks.propTypes = {
   stateFoods: PropTypes.arrayOf(
     PropTypes.any,
   ).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

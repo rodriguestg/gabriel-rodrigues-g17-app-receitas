@@ -61,6 +61,10 @@ RecipeDetails.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    includes: PropTypes.func,
+  }).isRequired,
 };
 
 export default RecipeDetails;

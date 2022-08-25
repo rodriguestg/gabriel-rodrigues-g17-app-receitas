@@ -1,6 +1,9 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import Loading from '../Components/Loading';
+import RecipeCheckbox from '../Components/RecipeCheckbox';
+import fetchFoodsObject from '../services/fetchFoodAPIs';
 
 class RecipeInProgress extends React.Component {
   constructor() {
@@ -12,6 +15,7 @@ class RecipeInProgress extends React.Component {
       recipeInstructions: '',
       recipeIngredients: [],
       recipeMeasures: [],
+      isLoading: true,
     };
   }
 
@@ -26,12 +30,12 @@ class RecipeInProgress extends React.Component {
     return json;
   }
 
-  fetchFoodsById = async (id) => {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const json = await response.json();
+  // fetchFoodsById = async (id) => {
+  //   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  //   const json = await response.json();
 
-    return json;
-  }
+  //   return json;
+  // }
 
   saveRecipeIngredientsAndMeasures = (obj) => {
     const array = Object.entries(obj[0]);
@@ -50,7 +54,7 @@ class RecipeInProgress extends React.Component {
           recipeMeasures: [...prevState.recipeMeasures, element[1]],
         }));
       }
-      return console.log(this.state);
+      return 'oi';
     });
   }
 
@@ -63,40 +67,55 @@ class RecipeInProgress extends React.Component {
     if (pathname.includes('drinks')) {
       const recipeData = await this.fetchDrinksById(pathnameId);
 
-      recipeData.drinks.map((element) => (
-        this.setState({
-          recipeName: element.strDrink,
-          recipeImage: element.strDrinkThumb,
-          recipeCategory: element.strCategory,
-          recipeInstructions: element.strInstructions,
-        })
-      ));
+      const data = recipeData.drinks[0];
+      this.setState({
+        recipeName: data.strDrink,
+        recipeImage: data.strDrinkThumb,
+        recipeCategory: data.strCategory,
+        recipeInstructions: data.strInstructions,
+      });
       this.saveRecipeIngredientsAndMeasures(recipeData.drinks);
     }
 
     if (pathname.includes('foods')) {
-      const recipeData = await this.fetchFoodsById(pathnameId);
-      console.log(recipeData);
-      recipeData.meals.map((element) => (
-        this.setState({
-          recipeName: element.strMeal,
-          recipeImage: element.strMealThumb,
-          recipeCategory: element.strCategory,
-          recipeInstructions: element.strInstructions,
-        })
-      ));
+      const recipeData = await fetchFoodsObject.fetchFoodsById(pathnameId);
+
+      const data = recipeData.meals[0];
+      this.setState({
+        recipeName: data.strMeal,
+        recipeImage: data.strMealThumb,
+        recipeCategory: data.strCategory,
+        recipeInstructions: data.strInstructions,
+      });
       this.saveRecipeIngredientsAndMeasures(recipeData.meals);
     }
+    this.setState({
+      isLoading: false,
+    });
   }
 
   renderRecipeIngredients = () => {
     const { recipeIngredients } = this.state;
+    const { location: { pathname } } = this.props;
+    const pathnameArray = pathname.split('/');
+    const pathnameId = pathnameArray[2];
+
     return recipeIngredients.map((element, index) => (
-      <div key={ element }>
-        <p data-testid={ `${index}-ingredient-step` }>{element}</p>
+      <div key={ `${element}-${index}` }>
+        <RecipeCheckbox
+          element={ element }
+          index={ index }
+          id={ pathnameId }
+          pathname={ pathname }
+        />
       </div>
     ));
   }
+
+  // validateCheckBoxes = () => {
+  //   const checkboxes = document.querySelectorAll('.done');
+  //   console.log(checkboxes);
+  // }
 
   render() {
     const {
@@ -104,10 +123,14 @@ class RecipeInProgress extends React.Component {
       recipeImage,
       recipeCategory,
       recipeInstructions,
+      isLoading,
     } = this.state;
 
     return (
       <div>
+        {
+          isLoading && <Loading />
+        }
         <img
           src={ recipeImage }
           alt={ recipeName }
@@ -137,7 +160,7 @@ class RecipeInProgress extends React.Component {
             { recipeCategory }
           </p>
         </div>
-        {this.renderRecipeIngredients()}
+        { this.renderRecipeIngredients() }
         <div>
           <p data-testid="instructions">{ recipeInstructions }</p>
         </div>
@@ -145,6 +168,7 @@ class RecipeInProgress extends React.Component {
           <button
             type="button"
             data-testid="finish-recipe-btn"
+            onClick={ () => this.validateCheckBoxes() }
           >
             Finalizar
           </button>
@@ -153,5 +177,15 @@ class RecipeInProgress extends React.Component {
     );
   }
 }
+
+RecipeInProgress.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    includes: PropTypes.func,
+  }).isRequired,
+};
 
 export default connect(null, null)(RecipeInProgress);

@@ -19,6 +19,11 @@ class SearchBar extends React.Component {
     global.alert(mensage);
   };
 
+  alertSelectionOption = () => {
+    const mensage = 'Selecione uma opção';
+    global.alert(mensage);
+  };
+
   apiSearch = async () => {
     const { url, history, dispatchSearch } = this.props;
     const { search: { nameSearch, typeSearch } } = this.state;
@@ -50,7 +55,7 @@ class SearchBar extends React.Component {
       }
       break;
     default:
-      console.log('Selecione uma opção');
+      this.alertSelectionOption();
     }
   };
 

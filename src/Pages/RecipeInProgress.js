@@ -125,13 +125,21 @@ class RecipeInProgress extends React.Component {
           </button>
         </div>
         <div>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+          >
+            Favoritar
+          </button>
+        </div>
+        <div>
           <p data-testid="recipe-category">
             { recipeCategory }
           </p>
         </div>
         {this.renderRecipeIngredients()}
         <div>
-          <p>{ recipeInstructions }</p>
+          <p data-testid="instructions">{ recipeInstructions }</p>
         </div>
         <div>
           <button

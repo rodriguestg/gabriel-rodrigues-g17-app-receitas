@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -16,29 +16,25 @@ class RecipeInProgress extends React.Component {
   }
 
   componentDidMount() {
-    this.saveRecipeInfoToState();
-    this.getRecipe();
+    this.getRecipeById();
   }
 
-  getRecipe = () => {
-    console.log('oi');
-    // PEGAR RECEITA PELO ID E FAZER O RESTANTE
-    // 2 ENDPOINTS DIFERENTES, UM PARA BEBIDA E OUTRO PARA COMIDA
+  fetchDrinksById = async (id) => {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await response.json();
+
+    return json;
   }
 
-  saveRecipeInfoToState = () => {
-    const { stateFoods } = this.props;
+  fetchFoodsById = async (id) => {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await response.json();
 
-    stateFoods.map((element) => (
-      this.setState({
-        recipeName: element.strDrink,
-        recipeImage: element.strDrinkThumb,
-        recipeCategory: element.strCategory,
-        recipeInstructions: element.strInstructions,
-      })
-    ));
+    return json;
+  }
 
-    const array = Object.entries(stateFoods[0]);
+  saveRecipeIngredientsAndMeasures = (obj) => {
+    const array = Object.entries(obj[0]);
 
     const filteredArray = array.filter((element) => (element[0].includes('strIngredient')
     && element[1]) || (element[0].includes('strMeasure') && element[1]));
@@ -54,8 +50,43 @@ class RecipeInProgress extends React.Component {
           recipeMeasures: [...prevState.recipeMeasures, element[1]],
         }));
       }
-      return 'oi';
+      return console.log(this.state);
     });
+  }
+
+  getRecipeById = async () => {
+    const { location: { pathname } } = this.props;
+
+    const pathnameArray = pathname.split('/');
+    const pathnameId = pathnameArray[2];
+
+    if (pathname.includes('drinks')) {
+      const recipeData = await this.fetchDrinksById(pathnameId);
+
+      recipeData.drinks.map((element) => (
+        this.setState({
+          recipeName: element.strDrink,
+          recipeImage: element.strDrinkThumb,
+          recipeCategory: element.strCategory,
+          recipeInstructions: element.strInstructions,
+        })
+      ));
+      this.saveRecipeIngredientsAndMeasures(recipeData.drinks);
+    }
+
+    if (pathname.includes('foods')) {
+      const recipeData = await this.fetchFoodsById(pathnameId);
+      console.log(recipeData);
+      recipeData.meals.map((element) => (
+        this.setState({
+          recipeName: element.strMeal,
+          recipeImage: element.strMealThumb,
+          recipeCategory: element.strCategory,
+          recipeInstructions: element.strInstructions,
+        })
+      ));
+      this.saveRecipeIngredientsAndMeasures(recipeData.meals);
+    }
   }
 
   renderRecipeIngredients = () => {
@@ -114,11 +145,5 @@ class RecipeInProgress extends React.Component {
     );
   }
 }
-
-// RecipeInProgress.propTypes = {
-//   stateFoods: PropTypes.shape({
-//     map: PropTypes.func,
-//   }).isRequired,
-// };
 
 export default connect(null, null)(RecipeInProgress);

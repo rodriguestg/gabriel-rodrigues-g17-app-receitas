@@ -21,7 +21,15 @@ class RecipeDetails extends Component {
 
   handleClick = () => {
     const { match: { params: { id } }, history } = this.props;
-    history.push(`/drinks/${id}/in-progress`);
+    const { location: { pathname } } = this.props;
+
+    if (pathname.includes('drinks')) {
+      history.push(`/drinks/${id}/in-progress`);
+    }
+
+    if (pathname.includes('foods')) {
+      history.push(`/foods/${id}/in-progress`);
+    }
   }
 
   render() {
